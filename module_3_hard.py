@@ -48,7 +48,7 @@ print(result)
 Т.к. каждая структура может содержать в себе ещё несколько элементов, можно использовать параметр *args
 Для определения типа данного используйте функцию isinstance.
 '''
-from os import remove
+
 
 
 data_structure = [
@@ -60,34 +60,41 @@ data_structure = [
 ]
 
 summa=0
-
 def calculate_structure_sum(*arg):
   global summa
 
   for i in arg:
-    if i==list or i==tuple:
-      return calculate_structure_sum(i)
+    print(i,type(i))
+    if isinstance(i,(int,float)):
+        summa = summa + i
 
-    elif i==str:
-      summa=summa+len(i)
+    elif isinstance(i,str):
+        summa=summa+len(i)
 
-    elif i==float or i == int:
-      summa = summa + i
+    elif isinstance(i,dict):
+        summa=summa+sum(value for value in i.values() if isinstance(value,(int,float)))
+        keys_1 = str(i.keys())
+        keys_1 = keys_1.replace("dict_keys", '')
+        keys_1 = keys_1.replace("(", '')
+        keys_1 = keys_1.replace(")", '')
+        keys_1 = keys_1.replace("]", '')
+        keys_1 = keys_1.replace("[", '')
+        keys_1 = keys_1.replace(",", '')
+        keys_1 = keys_1.replace("'", '')
+        keys_1 = keys_1.replace(" ", '')
+        summa = summa+len(keys_1)
 
-    elif i==dict:
-      summa=summa+sum(value for value in i.values() if isinstance(value,(int,float)))
-      keys_1 = str(i.keys())
-      keys_1 = keys_1.replace("dict_keys", '')
-      keys_1 = keys_1.replace("(", '')
-      keys_1 = keys_1.replace(")", '')
-      keys_1 = keys_1.replace("]", '')
-      keys_1 = keys_1.replace("[", '')
-      keys_1 = keys_1.replace(",", '')
-      keys_1 = keys_1.replace("'", '')
-      keys_1 = keys_1.replace(" ", '')
-      summa = summa+len(keys_1)
+    elif isinstance(i,(list,tuple)):
 
-  return summa
+        print(i,type(i))
+        if i ==int:
+            continue
+        else:
+            return calculate_structure_sum(*i)
+
+    print(summa)
+
+    return summa
 
 
 print(calculate_structure_sum(data_structure))
