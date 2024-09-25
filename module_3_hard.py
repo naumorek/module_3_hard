@@ -57,12 +57,11 @@ data_structure = [
   ((), [{(2, 'Urban', ('Urban2', 35))}])
 ]
 
-summa=0
-def calculate_structure_sum(*arg):
-    global summa
 
+def calculate_structure_sum(summ,*arg):
+    summa=summ
     for i in arg:
-        
+        print(summa,i)
         if isinstance(i,(int,float)):
             summa = summa + i
 
@@ -73,30 +72,16 @@ def calculate_structure_sum(*arg):
 
         elif isinstance(i,dict):
             summa=summa+sum(value for value in i.values() if isinstance(value,(int,float)))
-            keys_1 = str(i.keys())
-            keys_1 = keys_1.replace("dict_keys", '')
-            keys_1 = keys_1.replace("(", '')
-            keys_1 = keys_1.replace(")", '')
-            keys_1 = keys_1.replace("]", '')
-            keys_1 = keys_1.replace("[", '')
-            keys_1 = keys_1.replace(",", '')
-            keys_1 = keys_1.replace("'", '')
-            keys_1 = keys_1.replace(" ", '')
-            summa = summa+len(keys_1)
+            for j in i.keys():
+                summa=summa+len(j)
 
 
         elif isinstance(i,(list,tuple,set)):
 
-
-            if isinstance(i,(int,float)):
-                continue
-            else:
-                calculate_structure_sum(*i)
+            calculate_structure_sum(summa,*i)
     return summa
 
+print(calculate_structure_sum(0,data_structure))
 
 
-
-
-print(calculate_structure_sum(data_structure))
 
