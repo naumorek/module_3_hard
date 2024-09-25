@@ -52,7 +52,7 @@ print(result)
 
 
 data_structure = [
-  [1, 2, 3],
+
   {'a': 4, 'b': 5},
   (6, {'cube': 7, 'drum': 8}),
   "Hello",
@@ -61,40 +61,43 @@ data_structure = [
 
 summa=0
 def calculate_structure_sum(*arg):
-  global summa
+    global summa
 
-  for i in arg:
-    print(i,type(i))
-    if isinstance(i,(int,float)):
-        summa = summa + i
-
-    elif isinstance(i,str):
-        summa=summa+len(i)
-
-    elif isinstance(i,dict):
-        summa=summa+sum(value for value in i.values() if isinstance(value,(int,float)))
-        keys_1 = str(i.keys())
-        keys_1 = keys_1.replace("dict_keys", '')
-        keys_1 = keys_1.replace("(", '')
-        keys_1 = keys_1.replace(")", '')
-        keys_1 = keys_1.replace("]", '')
-        keys_1 = keys_1.replace("[", '')
-        keys_1 = keys_1.replace(",", '')
-        keys_1 = keys_1.replace("'", '')
-        keys_1 = keys_1.replace(" ", '')
-        summa = summa+len(keys_1)
-
-    elif isinstance(i,(list,tuple)):
-
+    for i in arg:
         print(i,type(i))
-        if i ==int:
-            continue
-        else:
-            return calculate_structure_sum(*i)
+        if isinstance(i,(int,float)):
+            summa = summa + i
+            print(i, type(i))
 
-    print(summa)
+        elif isinstance(i,str):
+            summa=summa+len(i)
+            print(i, type(i))
 
+        elif isinstance(i,dict):
+            summa=summa+sum(value for value in i.values() if isinstance(value,(int,float)))
+            keys_1 = str(i.keys())
+            keys_1 = keys_1.replace("dict_keys", '')
+            keys_1 = keys_1.replace("(", '')
+            keys_1 = keys_1.replace(")", '')
+            keys_1 = keys_1.replace("]", '')
+            keys_1 = keys_1.replace("[", '')
+            keys_1 = keys_1.replace(",", '')
+            keys_1 = keys_1.replace("'", '')
+            keys_1 = keys_1.replace(" ", '')
+            summa = summa+len(keys_1)
+            print(i, type(i))
+
+        elif isinstance(i,(list,tuple)):
+
+            print(i,type(i))
+            if isinstance(i,(int,float)):
+                continue
+            else:
+                return calculate_structure_sum(*i)
     return summa
+
+
+
 
 
 print(calculate_structure_sum(data_structure))
