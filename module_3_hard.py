@@ -49,10 +49,8 @@ print(result)
 Для определения типа данного используйте функцию isinstance.
 '''
 
-
-
 data_structure = [
-
+  [1, 2, 3],
   {'a': 4, 'b': 5},
   (6, {'cube': 7, 'drum': 8}),
   "Hello",
@@ -64,14 +62,14 @@ def calculate_structure_sum(*arg):
     global summa
 
     for i in arg:
-        print(i,type(i))
+        
         if isinstance(i,(int,float)):
             summa = summa + i
-            print(i, type(i))
+
 
         elif isinstance(i,str):
             summa=summa+len(i)
-            print(i, type(i))
+
 
         elif isinstance(i,dict):
             summa=summa+sum(value for value in i.values() if isinstance(value,(int,float)))
@@ -85,15 +83,15 @@ def calculate_structure_sum(*arg):
             keys_1 = keys_1.replace("'", '')
             keys_1 = keys_1.replace(" ", '')
             summa = summa+len(keys_1)
-            print(i, type(i))
 
-        elif isinstance(i,(list,tuple)):
 
-            print(i,type(i))
+        elif isinstance(i,(list,tuple,set)):
+
+
             if isinstance(i,(int,float)):
                 continue
             else:
-                return calculate_structure_sum(*i)
+                calculate_structure_sum(*i)
     return summa
 
 
@@ -102,28 +100,3 @@ def calculate_structure_sum(*arg):
 
 print(calculate_structure_sum(data_structure))
 
-
-'''
-
-
-
-data_structure = [
-  [1, 2, 3],
-  {'a': 4, 'b': 5},
-  (6, {'cube': 7, 'drum': 8}),
-  "Hello",
-  ((), [{(2, 'Urban', ('Urban2', 35))}])
-]
-i={'cube': 7, 'drum': 8}
-keys_1=str(i.keys())
-keys_1=keys_1.replace("dict_keys",'')
-keys_1=keys_1.replace("(",'')
-keys_1=keys_1.replace(")",'')
-keys_1=keys_1.replace("]",'')
-keys_1=keys_1.replace("[",'')
-keys_1=keys_1.replace(",",'')
-keys_1=keys_1.replace("'",'')
-keys_1=keys_1.replace(" ",'')
-print(len(keys_1))
-print(keys_1)
-'''
